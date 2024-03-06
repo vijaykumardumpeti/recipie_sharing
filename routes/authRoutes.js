@@ -10,12 +10,12 @@ const router = express.Router()
 
 
 
-router.post('/register', register)
-router.post('/login', login)
-router.put('/updateProfile/:id', updateProfile)
+router.post('/register', protectRoute, register)
+router.post('/login', protectRoute, login)
+router.put('/updateProfile/:id', protectRoute, updateProfile)
 
 
-router.post('/logout', logout)
+router.post('/logout', protectRoute, logout)
 
 
 

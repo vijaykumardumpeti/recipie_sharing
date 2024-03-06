@@ -9,17 +9,20 @@ const {
     deleteRecipie
 } = require('../controllers/recipieController')
 
+const protectRoute = require('./recipieRoutes')
+
+
 const router = express.Router()
 
 
 
-router.get('/:userId', getUserRecipies) //getting user recipies
+router.get('/:userId', protectRoute, getUserRecipies) //getting user recipies
 
-router.post('/', createRecipie)
-router.get('/:recipieId', getRecipie)//e
-router.get('/', getRecipies)
-router.put('/:recipieId', updateRecipie)
-router.delete('/:recipieId', deleteRecipie)
+router.post('/', protectRoute, createRecipie)
+router.get('/:recipieId', protectRoute, getRecipie)//e
+router.get('/', protectRoute, getRecipies)
+router.put('/:recipieId', protectRoute, updateRecipie)
+router.delete('/:recipieId', protectRoute, deleteRecipie)
 
 
 module.exports = router

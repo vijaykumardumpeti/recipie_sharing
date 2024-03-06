@@ -1,6 +1,8 @@
 const express = require('express')
 
 const {register, login, logout, updateProfile} = require('../controllers/authController')
+const protectRoute = require('./recipieRoutes')
+
 
 
 const router = express.Router()

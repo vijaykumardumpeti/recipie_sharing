@@ -16,7 +16,7 @@ const router = express.Router()
 
 
 
-router.get('/:userId', protectRoute, getUserRecipies) //getting user recipies
+router.get('/:userId', getUserRecipies) //getting user recipies
 
 router.post('/',  createRecipie)
 router.get('/:recipieId', getRecipie)//e

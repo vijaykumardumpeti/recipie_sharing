@@ -1,0 +1,26 @@
+# Dependency directories
+/node_modules
+
+# Environment variables
+.env
+
+# IDE or editor specific files
+.vscode/
+.idea/
+*.iml
+
+# Log files
+logs/
+*.log
+
+# Compiled files (if applicable)
+/dist/
+/build/
+*.exe
+*.o
+*.out
+*.dll
+
+# OS generated files
+.DS_Store
+Thumbs.db

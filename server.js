@@ -21,7 +21,11 @@ dotenv.config()
 app.use('/api/auth', authRoutes)
 app.use('/api/recipies', recipieRoutes)
 
-
+app.get("/", (req, res)=>{
+    res.json({
+        message: "Welcome to the server!"
+    })
+})
 
 
 
@@ -56,7 +60,7 @@ app.listen(port, ()=>{
     console.log(`server started at port: ${port}`)
 })
 
-
+module.exports = app
 
 
 

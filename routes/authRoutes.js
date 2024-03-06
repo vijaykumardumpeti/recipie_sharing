@@ -1,7 +1,7 @@
 const express = require('express')
 
 const {register, login, logout, updateProfile} = require('../controllers/authController')
-const protectRoute = require('./recipieRoutes')
+// const protectRoute = require('./recipieRoutes')
 
 
 
@@ -10,12 +10,12 @@ const router = express.Router()
 
 
 
-router.post('/register', protectRoute, register)
-router.post('/login', protectRoute, login)
-router.put('/updateProfile/:id', protectRoute, updateProfile)
+router.post('/register', register)
+router.post('/login', login)
+router.put('/updateProfile/:id', updateProfile)
 
 
-router.post('/logout', protectRoute, logout)
+router.post('/logout', logout)
 
 
 

@@ -1,4 +1,3 @@
-
 # Recipe Sharing Platform API
 This API provides endpoints for managing recipes and user authentication on a recipe sharing platform.
 
@@ -6,155 +5,123 @@ This API provides endpoints for managing recipes and user authentication on a re
 
 The project is deployed and can be accessed at [https://recipie-sharing-1.onrender.com](https://recipie-sharing-1.onrender.com).
 You can use the following APIs to interact with the system.
-## API Endpoints
 
-#### Setup
-Clone the repository:
-`` bash
+## Models
 
-git clone <repository_url>
+### User Class
 
-Install dependencies:
-`` bash
-cd backend
-npm install
-## Set up environment variables:
-Create a .env file in the root directory and define the following variables:
+Represents individuals who interact with the platform. It includes methods for user authentication, profile management, and interaction with recipes.
 
-PORT=3000
-MONGODB_URI=mongodb+srv://vijaydumpeti70:%23Jay123@cluster0.ayvmw68.mongodb.net/recipie_share?retryWrites=true&w=majority&appName=Cluster0
-JWT_SECRET_KEY=JAY_VIJAY
-Start the server:
-npm start
+### Recipe Class
 
+Contains details of a recipe, including title, description, ingredients, instructions, and optional images. It includes methods for CRUD operations on recipes.
 
-#### API Endpoints
-### User Authentication
-# Register User
-- **Endpoint:** `/api/auth/register`
-- **Method:** `POST`
-- Request Body:
-{
-  "username": "example_user",
-  "email": "user@example.com",
-  "password": "example_password"
-}
-# Response:
-{
-  "userId": "user_id",
-  "username": "example_user",
-  "email": "user@example.com"
-}
+## Functionality
 
-Login User
-# Register User
-- **Endpoint:** `/api/auth/login`
-- **Method:** `POST`
-- Request Body:
+### User Class Functionality
 
-{
-  "email": "user@example.com",
-  "password": "example_password"
-}
-# Response:
+- **User Registration**: Method for registering new users.
+- **User Login**: Method for authenticating users.
+- **Profile Management**: Methods for updating user profiles.
+- **Authentication Mechanisms**: Implements JWT token generation and validation for secure authentication.
 
-{
-  "userId": "user_id",
-  "username": "example_user",
-  "token": "jwt_token"
-}
+### Recipe Class Functionality
 
-Update User
-# Register User
-- **Endpoint:** `/api/auth/updateProfile`
-- **Method:** `POST`
-- Request Body:
+- **CRUD Operations**: Methods for creating, reading, updating, and deleting recipes.
+- **Validation and Error Handling**: Ensures proper validation and error handling for recipe-related operations.
+- **Encapsulation**: Utilizes encapsulation to interact with the database within the Recipe class methods.
+
+## Documentation
+
+### Setup Instructions
+
+1. Clone the repository to your local machine.
+2. Install dependencies using `npm install`.
+3. Set up your database and configure the connection in the `config.js` file.
+4. Run the server using `npm start`.
+
+### API Endpoints
+
+#### User Endpoints
+
+- `POST /api/user/register`: Register a new user.
+- `POST /api/user/login`: Login as an existing user.
+- `PUT /api/user/updateuser/:id`: Update user profile information.
+
+#### Recipe Endpoints
+
+- `GET /api/recipe/:userId`: Get recipes associated with a user.
+- `POST /api/recipe`: Create a new recipe.
+- `GET /api/recipe/:recipieId`: Get details of a recipe by ID.
+- `GET /api/recipe`: Get all recipes.
+- `PUT /api/recipe/:recipieId`: Update an existing recipe.
+- `DELETE /api/recipe/:recipieId`: Delete a recipe by ID.
+
+### Examples
+
+#### User Registration
+
+```http
+POST /api/user/register
+Content-Type: application/json
 
 {
   "username": "example_user",
   "email": "user@example.com",
-  "password": "example_password"
+  "password": "password123"
 }
-# Response:
+
+
+
+
+POST /api/user/login
+Content-Type: application/json
+
 {
-  "userId": "user_id",
-  "message": "user updated successfully"
+  "email": "user@example.com",
+  "password": "password123"
 }
 
-### Recipe Management
 
-## Create Recipe
-- **Endpoint:** `/api/auth/login`
-- **Method:** `POST`
-- **Authorization**: `Bearer Token (JWT)`
 
-- Request Body:
-Request Body:
+PUT /api/user/updateuser/123
+Content-Type: application/json
+
 {
-  "title": "Spaghetti Carbonara",
-  "description": "Classic Italian pasta dish with eggs, cheese, and bacon",
-  "ingredients": ["Spaghetti", "Eggs", "Parmesan cheese", "Bacon", "Black pepper", "Garlic"],
-  "instructions": "..."
+  "username": "new_username",
+  "email": "new_email@example.com"
 }
-Response:
+
+
+
+POST /api/recipe
+Content-Type: application/json
+
 {
-  "recipeId": "recipe_id",
-  "title": "Spaghetti Carbonara",
-  "description": "Classic Italian pasta dish with eggs, cheese, and bacon",
-  "ingredients": ["Spaghetti", "Eggs", "Parmesan cheese", "Bacon", "Black pepper", "Garlic"],
-  "instructions": "...",
-  "userId": "user_id"
+  "title": "Delicious Pasta",
+  "description": "A classic pasta dish with a rich tomato sauce.",
+  "ingredients": ["pasta", "tomatoes", "garlic", "olive oil"],
+  "instructions": "1. Cook pasta according to package instructions. 2. Heat olive oil in a pan, add minced garlic and tomatoes. 3. Mix in cooked pasta. 4. Serve hot.",
+  "image": "https://example.com/pasta_image.jpg"
 }
 
-### Get Recipe by ID
-- **Endpoint:** ` /api/recipes/:recipeId`
-- **Method:** `GET`
-- **Authorization**: `Bearer Token (JWT)`
 
-# Response
+PUT /api/recipe/123
+Content-Type: application/json
+
 {
-  "recipeId": "recipe_id",
-  "title": "Spaghetti Carbonara",
-  "description": "Classic Italian pasta dish with eggs, cheese, and bacon",
-  "ingredients": ["Spaghetti", "Eggs", "Parmesan cheese", "Bacon", "Black pepper", "Garlic"],
-  "instructions": "...",
-  "userId": "user_id"
-}
-
-
-### Update Recipe
-- **Endpoint:** `/api/recipes/:recipeId`
-- **Method:** `PUT`
-- **Authorization**: `Bearer Token (JWT)`
-  
-Response:
-{
-  "recipeId": "recipe_id",
-  "title": "Updated Title",
-  "description": "Updated Description",
-  "ingredients": ["Updated Ingredient 1", "Updated Ingredient 2"],
-  "instructions": "Updated Instructions",
-  "userId": "user_id"
-}
-
-## Delete Recipe
-- **Endpoint:** ` /api/recipes/:recipeId`
-- **Method:** `DELETE`
-- **Authorization**: `Bearer Token (JWT)`
--Response:
-{
-  "message": "Recipe deleted successfully",
-  "deletedRecipeId": "recipe_id"
+  "title": "Spicy Pasta",
+  "description": "A fiery version of the classic pasta dish with extra chili.",
+  "ingredients": ["pasta", "tomatoes", "garlic", "chili", "olive oil"],
+  "instructions": "1. Cook pasta according to package instructions. 2. Heat olive oil in a pan, add minced garlic, tomatoes, and chili. 3. Mix in cooked pasta. 4. Serve hot.",
+  "image": "https://example.com/spicy_pasta_image.jpg"
 }
 
 
 
 
-### Object-Oriented Programming (OOP) Concepts
-Encapsulation: The User and Recipe classes encapsulate data and behavior related to users and recipes, respectively. This allows for cleaner and more organized code.
-
-Abstraction: The classes abstract away the complexities of interacting with the database by providing methods for CRUD operations. Users of the API only need to interact with these methods without needing to know the underlying implementation details.
-
-Inheritance: Inheritance is not explicitly used in this project, but it could be implemented if there are common attributes or methods shared among different types of users or recipes.
-
-Polymorphism: Polymorphism allows for flexibility in method implementations. For example, the createRecipe method can accept different parameters based on the recipe data provided.
+OOP Concepts Utilization
+Encapsulation: Classes encapsulate related functionality and data, providing a clear interface for interaction.
+Abstraction: Users interact with the API through high-level methods, abstracting away complex implementation details.
+Modularity: Separation of concerns between User and Recipe classes allows for easier maintenance and scalability.
+Inheritance: If applicable, inheritance could be utilized for extending functionality, such as different types of recipes inheriting from a base Recipe class.
